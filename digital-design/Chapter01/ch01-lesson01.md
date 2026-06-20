@@ -95,12 +95,12 @@ in base-12, $\text{A} = 10$ and $\text{B} = 11$
 We expand it using powers of 12:
 
 ```math
-\begin{align}
+\begin{align*}
 N &= 3 \times 12^2 + 11 \times 12^1 + 2 \times 12^0 + 4 \times 12^{-1} \\
 &= 3 \times 144 + 11 \times 12 + 2 \times 1 + 4 \times \frac{1}{12} \\
 &= 432 + 132 + 2 + \frac13\\
 &\approx 566.33333
-\end{align}
+\end{align*}
 ```
 
 Thus:
