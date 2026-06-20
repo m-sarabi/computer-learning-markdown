@@ -9,27 +9,36 @@
     // 2. Convert <tg-math-block>...</tg-math-block> to $$...$$ (block math)
     markdown = markdown.replace(/<tg-math-block>([\s\S]*?)<\/tg-math-block>/g, '$$$$$1$$$$');
 
-    // 3. Convert ||...|| to <span class="mpe-spoiler">...</span> (spoiler)
-    markdown = markdown.replace(/\|\|([\s\S]*?)\|\|/g, '<span class="mpe-spoiler">$1</span>');
+    // 3. Convert ||...|| to a toggleable HTML structure
+    markdown = markdown.replace(/\|\|([\s\S]*?)\|\|/g, '<label class="mpe-spoiler"><input type="checkbox"><span>$1</span></label>');
 
     return markdown;
   },
 
   onDidParseMarkdown: async function(html) {
-    // Inject CSS to support the spoiler effect dynamically across both light and dark themes
     const style = `
 <style>
+.mpe-spoiler input[type="checkbox"] {
+  display: none !important;
+}
+
 .mpe-spoiler {
+  cursor: pointer;
+  display: inline;
+}
+
+.mpe-spoiler span {
   background-color: rgba(127, 127, 127, 0.85);
   color: transparent;
   border-radius: 3px;
-  padding: 0 4px;
-  cursor: pointer;
+  padding: 0 0;
   user-select: none;
   transition: all 0.15s ease;
+  display: inline;
 }
-.mpe-spoiler:hover {
-  background-color: rgba(127, 127, 127, 0.15);
+
+.mpe-spoiler input[type="checkbox"]:checked ~ span {
+  background-color: transparent;
   color: inherit;
   user-select: auto;
 }
